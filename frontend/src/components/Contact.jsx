@@ -2,7 +2,7 @@ function Contact() {
   return (
     <div className="contact-page">
       <div className="contact-left">
-        <h1>Have Questions? <br /> Contact Us!</h1>
+        <h1>Have Questions? <br/>Contact Us!</h1>
         <p>Whether you have questions about court availability, pricing, or anything else – we’re here to help!</p>
         <div className="email-box">
           <p>Email us at:</p>
@@ -21,8 +21,8 @@ function Contact() {
             <input type="email" placeholder="Enter your email" required />
           </label>
           <label>
-            Subject
-            <input type="text" placeholder="What is this about?" />
+            Subject*
+            <input type="text" placeholder="What is this about?" required/>
           </label>
           <label>
             Message*

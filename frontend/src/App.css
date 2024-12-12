@@ -1,18 +1,23 @@
+/* NAVBAR */
 body {
   background-color: white;
   margin: 0;
   padding: 0;
+  overflow-x: hidden; /* Ukryj przewijanie poziome */
 }
 
 .main {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between; /* Piłka z lewej, Login z prawej */
   height: 60px;
-  width: 100%;
+  max-width: 100%; /* Zapobiegaj rozszerzaniu na prawo */
+  width: 100%; /* Wypełnij całą szerokość */
   background-color: darkblue;
   text-align: center;
   position: relative;
+  padding: 0 20px; /* Marginesy po bokach */
+  box-sizing: border-box; /* Uwzględnij padding w szerokości */
 }
 
 .main a {
@@ -20,7 +25,6 @@ body {
   text-decoration: none;
   font-size: 125%;
   font-family: 'Times New Roman', Times, serif;
-  padding: 2%;
 }
 
 .main .currentpage {
@@ -30,14 +34,24 @@ body {
 .main img {
   height: 70%;
   width: auto;
-  margin: 0 2%;
+  margin-right: 15px;
+  cursor: pointer;
 }
 
-.main #login {
-  position: absolute;
-  right: 1%;
+.main nav {
+  display: flex;
+  justify-content: flex-start;
+  gap: 15px;
+  flex: 1;
 }
 
+.main #login,
+.main #account {
+  position: relative;
+  margin-left: auto; /* Wyrównanie do prawej */
+}
+
+/* Pasek dolny */
 .bottommain {
   position: fixed;
   bottom: 0;
@@ -46,7 +60,57 @@ body {
   height: 60px;
   background-color: darkblue;
   z-index: 1000;
+  box-sizing: border-box; /* Uwzględnij marginesy */
 }
+
+/* Media Queries for Mobile */
+@media (max-width: 768px) {
+  .main {
+    flex-direction: column; /* Układ pionowy */
+    align-items: center;
+    height: auto; /* Dynamiczna wysokość */
+    padding: 10px 0; /* Dodatkowe odstępy w mobilnej wersji */
+  }
+
+  .main img {
+    cursor: pointer; /* Obrazek jako przycisk */
+    max-height: 50px;
+    max-width: 50px;
+    margin: 10px 0;
+  }
+
+  .main nav {
+    display: none; /* Domyślnie ukryj menu */
+  }
+
+  .main.expanded nav {
+    display: flex; /* Pokaż menu po rozwinięciu */
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Odstęp między elementami */
+    width: 100%; /* Upewnij się, że menu zajmuje całą szerokość */
+    background-color: darkblue; /* Dodanie tła w rozwiniętym menu */
+    padding: 10px 0; /* Dodanie odstępu wewnętrznego */
+  }
+
+  .main #login,
+  .main #account {
+    display: flex; /* Pokaż menu po rozwinięciu */
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Odstęp między elementami */
+    width: 100%; /* Upewnij się, że menu zajmuje całą szerokość */
+    background-color: darkblue; /* Dodanie tła w rozwiniętym menu */
+  }
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -55,29 +119,33 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 50px;
+  padding: 20px;
   gap: 20px;
   font-family: 'Times New Roman', Times, serif;
 }
 
 .contact-left {
   flex: 1;
+  margin: 0;
 }
 
 .contact-left h1 {
   font-size: 2.5rem;
   color: #333;
+  margin-bottom: 10px;
 }
 
 .contact-left p {
-  margin: 10px 0 20px;
+  margin: 0;
   font-size: 1.2rem;
   color: #666;
+  line-height: 1.6;
+  text-align: left;
 }
 
 .email-box {
   background: #f9f9f9;
-  padding: 15px;
+  padding: 10px;
   border-radius: 8px;
   display: inline-block;
 }
@@ -142,6 +210,43 @@ form button:hover {
   background: #0056b3;
 }
 
+/* Media Queries for smaller screens */
+@media (max-width: 768px) {
+  .contact-page {
+    flex-direction: column; /* Zmiana układu na pionowy */
+    gap: 10px;
+  }
+
+  .contact-left,
+  .contact-right {
+    flex: none;
+    width: 100%; /* Ustaw elementy na pełną szerokość */
+  }
+
+  .contact-left h1 {
+    font-size: 2rem; /* Zmniejszenie rozmiaru tekstu */
+  }
+
+  .contact-left p {
+    font-size: 1rem; /* Zmniejszenie rozmiaru tekstu */
+  }
+
+  .contact-right {
+    padding: 20px 15px; /* Wewnętrzny padding */
+    margin-right: 10px; /* Odsunięcie od prawej krawędzi */
+    margin-bottom: 80px;
+    box-sizing: border-box; /* Upewniamy się, że padding i marginesy nie wpływają na szerokość */
+  }
+
+  .contact-right form input,
+  .contact-right form textarea {
+    width: calc(100% - 30px); /* Dopasowanie szerokości do paddingu kontenera */
+    max-width: 100%; /* Zapobieganie wychodzeniu poza kontener */
+    box-sizing: border-box; /* Włączenie paddingu do szerokości elementu */
+  }
+}
+
+
 
 
 /* LOGIN PAGE */
@@ -149,16 +254,17 @@ form button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 80vh;
   background: #f9f9f9;
 }
 
 .form-container {
   background: white;
-  padding: 30px;
+  padding: 30px; /* Dodanie wewnętrznego marginesu */
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   width: 300px;
+  box-sizing: border-box; /* Uwzględnij padding w szerokości */
 }
 
 h2 {
@@ -170,6 +276,7 @@ h2 {
 form {
   display: flex;
   flex-direction: column;
+  gap: 15px; /* Dodanie odstępów między elementami */
 }
 
 label {
@@ -179,11 +286,13 @@ label {
 }
 
 input {
+  width: calc(100% - 20px); /* Odsunięcie od krawędzi kontenera */
   padding: 10px;
-  margin-bottom: 15px;
+  margin: 0 auto; /* Środek dla lepszego wyświetlania */
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 1rem;
+  box-sizing: border-box; /* Uwzględnij padding w szerokości */
 }
 
 button {
@@ -194,10 +303,6 @@ button {
   border-radius: 5px;
   cursor: pointer;
   font-size: 1rem;
-}
-
-button:hover {
-  background: #0056b3;
 }
 
 .toggle-button {
@@ -216,6 +321,19 @@ button:hover {
 p {
   text-align: center;
   font-size: 0.9rem;
+}
+
+/* Media Queries for Mobile */
+@media (max-width: 768px) {
+  .form-container {
+    padding: 20px; /* Zmniejszenie paddingu */
+    max-width: 95%; /* Formularz bardziej dopasowany do ekranu */
+    box-sizing: border-box; /* Uwzględnij padding w szerokości */
+  }
+
+  input {
+    width: calc(100% - 30px); /* Większe odsunięcie od krawędzi w mobilnej wersji */
+  }
 }
 
 
@@ -418,17 +536,24 @@ p {
 
 .reservations-form input,
 .reservations-form button {
+  width: calc(100% - 5px); /* Odsunięcie od prawej i lewej krawędzi */
   padding: 10px;
   margin-top: 5px;
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
+  box-sizing: border-box; /* Uwzględnia padding w szerokości */
+}
+
+.reservations-form input {
+  background-color: #fdfdfd; /* Delikatne tło dla pól */
 }
 
 .reservations-form button {
   background: #007bff;
   color: white;
   cursor: pointer;
+  width: 100%; /* Przyciski zajmują całą szerokość formularza */
 }
 
 .reservations-form button:hover {
@@ -442,3 +567,150 @@ p {
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
+
+
+/* Media Queries for smaller screens */
+@media (max-width: 768px) {
+  .reservations-container {
+    flex-direction: column; /* Układ pionowy */
+    gap: 15px; /* Zmniejszenie odstępów między sekcjami */
+  }
+
+  .reservations-form {
+    width: calc(100% - 20px); /* Formularz zajmuje 100% szerokości minus marginesy */
+    margin: 0 auto; /* Wyśrodkowanie formularza */
+    margin-right: 10px; /* Odsunięcie od prawej strony */
+    padding: 15px; /* Dodatkowy padding dla lepszej estetyki */
+    box-sizing: border-box; /* Uwzględnienie paddingu w szerokości */
+  }
+
+  .reservations-calendar {
+    width: 100%; /* Kalendarz zajmuje pełną szerokość */
+    margin: 0; /* Usuń marginesy */
+    transform: scale(0.9); /* Zmniejszenie kalendarza o 10% */
+    transform-origin: top left; /* Punkt odniesienia skalowania */
+    overflow-x: auto; /* W razie potrzeby włącz przewijanie poziome */
+  }
+
+  .reservations-form input,
+  .reservations-form button {
+    width: 100%; /* Pola i przyciski dopasowane do szerokości rodzica */
+    box-sizing: border-box; /* Uwzględnienie paddingu i marginesów w szerokości */
+  }
+
+  /* Naprawa stylu nagłówka FullCalendar */
+  .fc-toolbar {
+    display: flex;
+    flex-direction: column; /* Elementy w pionie */
+    align-items: center; /* Wyśrodkowanie elementów */
+  }
+
+  .fc-toolbar-chunk:first-child {
+    order: 2; /* Ustaw przyciski nawigacji poniżej tytułu */
+    margin-top: 10px; /* Dodaj odstęp między tytułem a przyciskami */
+  }
+
+  .fc-toolbar-title {
+    font-size: 1.5rem; /* Dostosowanie rozmiaru tytułu */
+    text-align: center;
+    order: 1; /* Tytuł wyświetlany nad przyciskami */
+  }
+
+  .fc-toolbar-chunk:last-child {
+    order: 3; /* Przyciski zmiany widoku (month/week/day) są na dole */
+    margin-top: 10px; /* Dodaj odstęp pod przyciskami nawigacji */
+  }
+
+  .fc-toolbar .fc-button {
+    margin: 0 5px; /* Odstępy między przyciskami */
+  }
+}
+
+
+
+/* ACCOUNT PAGE */
+.account-page {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.account-info {
+  flex: 1;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.account-info h2 {
+  margin-bottom: 20px;
+}
+
+.account-info button {
+  display: block;
+  margin-top: 10px;
+  padding: 10px 15px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.account-info button:hover {
+  background: #0056b3;
+}
+
+.account-reservations {
+  flex: 2;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.account-reservations h2 {
+  margin-bottom: 20px;
+}
+
+.account-reservations ul {
+  list-style: none;
+  padding: 0;
+}
+
+.account-reservations li {
+  padding: 15px;
+  margin-bottom: 15px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.account-reservations li p {
+  margin: 5px 0;
+  font-size: 1rem;
+}
+
+/* Media Queries for smaller screens */
+@media (max-width: 768px) {
+  .account-page {
+    flex-direction: column; /* Układ pionowy */
+    gap: 15px; /* Zmniejszenie odstępów */
+  }
+
+  .account-info,
+  .account-reservations {
+    width: 100%; /* Sekcje zajmują pełną szerokość */
+    margin: 0; /* Usuń marginesy */
+    box-sizing: border-box; /* Uwzględnij padding w szerokości */
+  }
+
+  .account-reservations {
+    margin-top: 10px; /* Dodaj odstęp między sekcjami */
+  }
+}
+

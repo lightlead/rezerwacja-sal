@@ -10,8 +10,8 @@ function Reservations() {
     time: "",
   });
 
-  const [events, setEvents] = useState([
-  ]);
+  const [events, setEvents] = useState([]);
+  const [error, setError] = useState(""); // Stan błędu
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -21,13 +21,39 @@ function Reservations() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Oblicz start i end czasu
+    const start = `${formData.date}T${formData.time}`;
+    const startDate = new Date(start);
+    const endDate = new Date(startDate);
+    endDate.setMinutes(startDate.getMinutes() + 90);
+
+    // Sprawdź kolizję z istniejącymi wydarzeniami
+    const hasConflict = events.some((event) => {
+      const eventStart = new Date(event.start);
+      const eventEnd = new Date(event.end);
+
+      // Sprawdzenie kolizji
+      return (
+        (startDate >= eventStart && startDate < eventEnd) || // Start nowego wydarzenia w trakcie istniejącego
+        (endDate > eventStart && endDate <= eventEnd) || // Koniec nowego wydarzenia w trakcie istniejącego
+        (startDate <= eventStart && endDate >= eventEnd) // Nowe wydarzenie obejmuje istniejące
+      );
+    });
+
+    if (hasConflict) {
+      setError("This time slot is already reserved.");
+      return;
+    }
+
     // Dodaj nowe wydarzenie do kalendarza
     const newEvent = {
       title: `Reserved`,
-      date: formData.date,
+      start: startDate.toISOString(),
+      end: endDate.toISOString(),
     };
 
     setEvents([...events, newEvent]);
+    setError(""); // Reset błędu
 
     // Resetuj formularz
     setFormData({ date: "", time: "" });
@@ -39,6 +65,7 @@ function Reservations() {
         {/* Formularz */}
         <div className="reservations-form">
           <h2>Book a Court</h2>
+          {error && <p className="error-message">{error}</p>} {/* Wyświetlenie błędu */}
           <form onSubmit={handleSubmit}>
             <label>
               Select Date:
@@ -72,10 +99,10 @@ function Reservations() {
             headerToolbar={{
               left: "prev,next today",
               center: "title",
-              right: "dayGridMonth,timeGridWeek,timeGridDay", // Wybór widoków
+              right: "dayGridMonth,timeGridWeek,timeGridDay",
             }}
-            height="auto" // Dynamiczna wysokość
-            events={events} // Lista wydarzeń
+            height="auto"
+            events={events}
           />
         </div>
       </div>
