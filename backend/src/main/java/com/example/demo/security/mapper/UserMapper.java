@@ -1,14 +1,15 @@
 package com.example.demo.security.mapper;
 
-import com.example.demo.security.model.Users;
-import org.springframework.stereotype.Component;
+import com.example.demo.security.dto.SignUpDto;
+import com.example.demo.security.dto.UserDto;
+import com.example.demo.security.entities.Users;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-@Component
-public class UserMapper {
-    public Users toUser(Users user) {
-        return Users.builder()
-                .username(user.getUsername())
-                .password(user.getPassword())
-                .build();
-    }
+@Mapper(componentModel = "spring")
+public interface UserMapper {
+    UserDto toUserDto(Users user);
+
+    @Mapping(target = "password", ignore = true)
+    Users signUpToUser(SignUpDto signUpDto);
 }
