@@ -1,4 +1,4 @@
-package com.example.demo.security.config;
+package com.example.demo.security.authentication;
 
 import com.example.demo.security.dto.ErrorDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
