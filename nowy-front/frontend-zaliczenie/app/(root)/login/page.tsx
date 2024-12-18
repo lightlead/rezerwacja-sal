@@ -1,12 +1,11 @@
-/* eslint-disable react/no-unescaped-entities */
-"use client"
-import { NextPage } from "next";
-
-const Page: NextPage = () => {
+import Sign from "@/app/components/Login/Sign";
+export default function LoginPage() {
 
     return (
-        <div></div>
+      <div className="page">
+         <div className="tile">
+            <Sign/>
+         </div>
+      </div>
     );
 }
-
-export default Page;

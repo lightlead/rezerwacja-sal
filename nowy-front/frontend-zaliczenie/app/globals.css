@@ -83,3 +83,7 @@ form textarea {
 form textarea {
   height: 100px;
 }
+
+form p {
+  color: red;
+}

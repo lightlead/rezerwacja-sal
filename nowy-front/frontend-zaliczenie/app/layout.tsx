@@ -46,7 +46,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <Link href="/contact" className={buttonStyle}>Contact</Link>
             <Link href="/about" className={buttonStyle}>About</Link>
           </div>
-          <Link href="/" className={buttonStyle}>Log in</Link>
+          <Link href="/login" className={buttonStyle}>Log in</Link>
         </div>
       </nav>
 
